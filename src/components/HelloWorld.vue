@@ -1,7 +1,7 @@
 <template>
   <!-- Heading -->
   <div class="header">
-    <h1>{{ msg || 'My Shopping List' }}</h1>
+    <h1>{{ header || 'My Shopping List' }}</h1>
     <!-- <button class="btn-secondary" @click="toggle">Add Item</button> -->
   </div>
   <!-- Add itemm, and prioritize -->
@@ -17,12 +17,15 @@
   </form>
   <!-- Start of the shopping list -->
   <ul>
-    <li @click="toggleDone(item)" v-for="item in reversedItems" :key="item.id">
+    <li @click="toggleDone(item)" v-for="item in filteredItems" :key="item.id">
       <span class="list-item" :class="{ done: item.done, priority: item.highPriority }">{{ item.label }}</span>
       <button class="close" @click="removeItem(item)">Remove</button>
     </li>
   </ul>
   <p v-if="items.length === 0">Nothing on the list 😞</p>
+  <button class="btn-done" @click="hideCompleted = !hideCompleted">
+    {{ hideCompleted ? 'Show all' : 'Hide completed' }}
+  </button>
 </template>
 
 <script>
@@ -36,8 +39,10 @@ export default {
   },
   data () {
     return {
+      header: '',
       newItem: '', // create empty array to start the item
       newItemHighPriority: false, // sets the priority to off initially
+      hideCompleted: false,
       editing: false,
       items: [
         { id: id++, label: 'carrots', done: true, highPriority: false },
@@ -49,6 +54,9 @@ export default {
   computed: {
     reversedItems () {
       return [...this.items].reverse()
+    },
+    filteredItems () {
+      return this.hideCompleted ? this.items.filter((t) => !t.done) : this.items
     }
   },
   methods: {
@@ -119,6 +127,26 @@ button.close {
   display: inline-block;
   margin-left: 1rem;
   padding: .75rem 1rem;
+  transition: .2s all ease-out;
+}
+.add-item-form .btn:hover {
+  opacity: .8;
+  cursor: pointer;
+}
+.btn-done {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 1rem;
+  background-color: rgb(56 189 248);
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  font-weight: 700;
+  display: inline-block;
+  margin-left: 1rem;
+  padding: .75rem 1rem;
+  transition: .2s all ease-out;
 }
 .add-item-form label {
   padding-left: 1rem;
@@ -167,6 +195,7 @@ a {
 ul {
   display: flex;
   flex-direction: column;
+  margin-bottom: 2.5em;
 }
 li {
   font-size: 1.5rem;
