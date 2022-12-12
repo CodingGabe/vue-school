@@ -217,6 +217,10 @@ p {
   .add-item-form .btn {
     margin-left: 0;
   }
+  .add-item-form {
+    display: flex;
+    flex-wrap: wrap;
+  }
   li {
     font-size: 1rem;
   }
@@ -227,5 +231,9 @@ p {
   label {
     font-size: .75rem;
   }
+}
+@media (max-width: 350px) {
+  .add-item-form .btn { margin-left: 1.25rem; }
+
 }
 </style>
