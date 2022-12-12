@@ -203,9 +203,4 @@ p {
   font-weight: 700;
 }
 
-@media (min-width: 375px) {
-  .add-item-form .btn { margin-left: 1.25rem; }
-  .add-item-form label { padding-left: 1rem; }
-
-}
 </style>

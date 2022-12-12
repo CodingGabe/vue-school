@@ -49,7 +49,7 @@ body {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   height: calc(100vh - 1rem);
 }
-@media (min-width: 375px) {
+@media (min-width: 576px) {
   #app {
     padding: 1rem;
   }
