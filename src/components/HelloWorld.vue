@@ -231,6 +231,9 @@ p {
   label {
     font-size: .75rem;
   }
+  button.close {
+    font-size: .6rem;
+  }
 }
 @media (max-width: 350px) {
   .add-item-form .btn { margin-left: 1.25rem; }
