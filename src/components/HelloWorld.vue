@@ -1,31 +1,28 @@
 <template>
-  <!-- Heading -->
-  <div class="header">
-    <h1>{{ header || 'My Shopping List' }}</h1>
-    <!-- <button class="btn-secondary" @click="toggle">Add Item</button> -->
-  </div>
-  <!-- Add itemm, and prioritize -->
-  <form @submit.prevent="saveItem" class="add-item-form">
-    <!-- Binds user input -->
-    <input v-model.trim="newItem" type="text" placeholder="Add item">
-    <label for="priority" value="High Priority">
-      High Priority
-      <input type="checkbox" v-model="newItemHighPriority">
-    </label>
-    <!-- save button -->
-    <button class="btn btn-primary">Save Item</button>
-  </form>
-  <!-- Start of the shopping list -->
-  <ul>
-    <li @click="toggleDone(item)" v-for="item in filteredItems" :key="item.id">
-      <span class="list-item" :class="{ done: item.done, priority: item.highPriority }">{{ item.label }}</span>
-      <button class="close" @click="removeItem(item)">Remove</button>
-    </li>
-  </ul>
-  <p v-if="items.length === 0">Nothing on the list 😞</p>
-  <button class="btn-done" @click="hideCompleted = !hideCompleted">
-    {{ hideCompleted ? 'Show all' : 'Hide completed' }}
-  </button>
+  <section class="main-content">
+    <!-- Add itemm, and prioritize -->
+    <form @submit.prevent="saveItem" class="add-item-form">
+      <!-- Binds user input -->
+      <input v-model.trim="newItem" type="text" placeholder="Add item">
+      <label for="priority" value="High Priority">
+        High Priority
+        <input type="checkbox" v-model="newItemHighPriority">
+      </label>
+      <!-- save button -->
+      <button class="btn btn-primary">Save Item</button>
+    </form>
+    <!-- Start of the shopping list -->
+    <ul>
+      <li @click="toggleDone(item)" v-for="item in filteredItems" :key="item.id">
+        <span class="list-item" :class="{ done: item.done, priority: item.highPriority }">{{ item.label }}</span>
+        <button class="close" @click="removeItem(item)">Remove</button>
+      </li>
+    </ul>
+    <p v-if="items.length === 0">Nothing on the list 😞</p>
+    <button class="btn-done" @click="hideCompleted = !hideCompleted">
+      {{ hideCompleted ? 'Show all' : 'Hide completed' }}
+    </button>
+  </section>
 </template>
 
 <script>
@@ -80,6 +77,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.main-content {
+  padding: 1.75rem 1.25rem;
+}
 .priority {
   color: rgb(22 163 74);
   font-weight: 700;
@@ -89,6 +89,8 @@ export default {
   text-decoration: line-through;
 }
 form {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 2.5rem;
 }
 button.close {
@@ -99,7 +101,7 @@ button.close {
   border: none;
   border-radius: 3px;
   padding: .35rem .45rem;
-  margin-left: 1rem;
+  font-size: .75rem;
 }
 .btn-secondary {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -118,14 +120,13 @@ button.close {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 1rem;
+  font-size: .75rem;
   background-color: rgb(79 70 229);
   border: none;
   border-radius: 3px;
   color: #fff;
   font-weight: 700;
   display: inline-block;
-  margin-left: 1rem;
   padding: .75rem 1rem;
   transition: .2s all ease-out;
 }
@@ -137,25 +138,24 @@ button.close {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 1rem;
+  font-size: .75rem;
   background-color: rgb(56 189 248);
   border: none;
   border-radius: 3px;
   color: #fff;
   font-weight: 700;
   display: inline-block;
-  margin-left: 1rem;
   padding: .75rem 1rem;
   transition: .2s all ease-out;
 }
-.add-item-form label {
-  padding-left: 1rem;
-}
+.add-item-form label { margin-bottom: 1.25rem; font-size: .75rem;}
+
 .add-item-form input[type=text] {
   border: none;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   padding: .75rem;
   font-size: 1rem;
+  margin-bottom: 1.25rem;
 }
 .add-item-form input[type=text]::placeholder {
   font-size: 1rem;
@@ -178,13 +178,14 @@ ul {
   padding: 0;
 }
 li {
+  display: flex;
+  justify-content: space-between;
   cursor: pointer;
-  display: block;
-  margin: 0 10px;
+  font-size: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 li span {
   display: inline-block;
-  padding: .75rem;
 }
 li span:hover {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
@@ -197,46 +198,14 @@ ul {
   flex-direction: column;
   margin-bottom: 2.5em;
 }
-li {
-  font-size: 1.5rem;
-  margin-bottom: .625rem;
-}
 p {
   font-size: 1.5rem;
   font-weight: 700;
 }
 
-@media (max-width: 576px) {
-  h1 {
-    font-size: 1.5rem;
-    font-weight: 700;
-  }
-  .add-item-form input[type=text] {
-    margin-bottom: 1.25rem;
-  }
-  .add-item-form .btn {
-    margin-left: 0;
-  }
-  .add-item-form {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  li {
-    font-size: 1rem;
-  }
-  .add-item-form .btn,
-  .btn-done {
-    font-size: .75rem;
-  }
-  label {
-    font-size: .75rem;
-  }
-  button.close {
-    font-size: .6rem;
-  }
-}
-@media (max-width: 350px) {
+@media (min-width: 375px) {
   .add-item-form .btn { margin-left: 1.25rem; }
+  .add-item-form label { padding-left: 1rem; }
 
 }
 </style>
