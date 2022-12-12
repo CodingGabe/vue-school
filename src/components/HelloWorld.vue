@@ -205,4 +205,27 @@ p {
   font-size: 1.5rem;
   font-weight: 700;
 }
+
+@media (max-width: 576px) {
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  .add-item-form input[type=text] {
+    margin-bottom: 1.25rem;
+  }
+  .add-item-form .btn {
+    margin-left: 0;
+  }
+  li {
+    font-size: 1rem;
+  }
+  .add-item-form .btn,
+  .btn-done {
+    font-size: .75rem;
+  }
+  label {
+    font-size: .75rem;
+  }
+}
 </style>

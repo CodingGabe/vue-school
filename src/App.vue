@@ -28,4 +28,10 @@ html {
   background-color: #fff;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
+@media (max-width: 576px) {
+  #app {
+    padding: 1rem;
+  }
+}
+
 </style>
