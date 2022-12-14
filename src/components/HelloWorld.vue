@@ -9,7 +9,12 @@
         <input type="checkbox" v-model="newItemHighPriority">
       </label>
       <!-- save button -->
-      <button class="btn btn-primary">Save Item</button>
+      <!-- <button :disabled="newItem.length < 3" class="btn btn-primary" :class="{ disabled: newItem.length < 3 }">Save Item</button> -->
+      <button
+        :disabled="newItem.length < 3"
+        :class="[ newItem.length < 3 ? 'disabled' : 'btn' ]"
+        >Save Item
+      </button>
     </form>
     <!-- Start of the shopping list -->
     <ul>
@@ -77,6 +82,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.add-item-form .disabled {
+  cursor: not-allowed;
+  background-color: rgb(203 213 225);
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+-webkit-font-smoothing:antialiased; -moz-osx-font-smoothing: grayscale;
+font-size: .75rem; border: none;
+border-radius: 3px; color: #fff; font-weight: 700; display: inline-block;
+padding: .75rem 1rem; transition: .2s all ease-out;
+}
 .main-content {
   padding: 1.75rem 1.25rem;
 }
